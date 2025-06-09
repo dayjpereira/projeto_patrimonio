@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @area_comum %>
+
+<div>
+  <%= link_to "Edit this area comum", edit_area_comum_path(@area_comum) %> |
+  <%= link_to "Back to area comums", area_comums_path %>
+
+  <%= button_to "Destroy this area comum", @area_comum, method: :delete %>
+</div>

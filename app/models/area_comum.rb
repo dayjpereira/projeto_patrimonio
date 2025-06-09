@@ -1,0 +1,4 @@
+class AreaComum < Ambiente
+
+end
+

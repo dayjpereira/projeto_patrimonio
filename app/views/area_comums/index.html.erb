@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Area comums" %>
+
+<h1>Area comums</h1>
+
+<div id="area_comums">
+  <% @area_comums.each do |area_comum| %>
+    <%= render area_comum %>
+    <p>
+      <%= link_to "Show this area comum", area_comum %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New area comum", new_area_comum_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  descricao: MyString
+  placa: MyString
+  data_aquisicao: 2025-06-09
+  ambiente: one
+  funcionario: one
+
+two:
+  nome: MyString
+  descricao: MyString
+  placa: MyString
+  data_aquisicao: 2025-06-09
+  ambiente: two
+  funcionario: two

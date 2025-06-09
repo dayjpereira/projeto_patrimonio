@@ -1,0 +1,22 @@
+<%= form_with(model: area_comum) do |form| %>
+  <% if area_comum.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(area_comum.errors.count, "error") %> prohibited this area_comum from being saved:</h2>
+
+      <ul>
+        <% area_comum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

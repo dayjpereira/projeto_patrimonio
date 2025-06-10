@@ -4,9 +4,10 @@
     <%= funcionario.nome %>
   </p>
 
+
   <p>
     <strong>Ambiente:</strong>
-    <%= funcionario.ambiente_id %>
+    <%= @funcionario.ambiente_nome || "Não informado" %>
   </p>
 
 </div>

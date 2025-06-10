@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_09_204535) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_10_194935) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
+  enable_extension "plpgsql"
 
   create_table "ambientes", force: :cascade do |t|
     t.string "nome"
@@ -49,7 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_09_204535) do
     t.string "placa"
     t.date "data_aquisicao"
     t.bigint "ambiente_id", null: false
-    t.bigint "funcionario_id", null: false
+    t.bigint "funcionario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ambiente_id"], name: "index_patrimonios_on_ambiente_id"

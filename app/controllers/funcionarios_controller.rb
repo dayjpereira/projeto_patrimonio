@@ -13,6 +13,8 @@ class FuncionariosController < ApplicationController
   # GET /funcionarios/new
   def new
     @funcionario = Funcionario.new
+    @departamentos = Departamento.all
+
   end
 
   # GET /funcionarios/1/edit
@@ -60,11 +62,16 @@ class FuncionariosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_funcionario
-      @funcionario = Funcionario.find(params.expect(:id))
+      @funcionario = Funcionario.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def funcionario_params
-      params.expect(funcionario: [ :nome, :ambiente_id ])
+      params.require(:funcionario).permit(:nome, :ambiente_id)
+    end
+
+    def por_departamento
+      funcionarios = Funcionario.where(departamento_id: params[:id])
+      render json: funcionarios.select(:id, :nome)
     end
 end

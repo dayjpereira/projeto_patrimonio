@@ -9,7 +9,9 @@ class Funcionario < ApplicationRecord
 
   def ambiente_deve_ser_departamento
     if ambiente.present? && ambiente.type != 'Departamento'
-      errors.add(:ambiente, "deve ser um Departamento")
+      errors.add(:ambiente, "Deve ser um Departamento")
     end
   end
 end
+
+

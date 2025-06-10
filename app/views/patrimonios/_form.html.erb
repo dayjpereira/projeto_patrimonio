@@ -32,14 +32,88 @@
   </div>
 
   <div>
-    <%= form.label :ambiente_id, style: "display: block" %>
-    <%= form.text_field :ambiente_id %>
+    <strong>Tipo de Ambiente:</strong><br>
+    <label>
+      <%= radio_button_tag :ambiente_tipo, 'Departamento', true, id: 'radio_departamento' %> Departamento
+    </label>
+    <label>
+      <%= radio_button_tag :ambiente_tipo, 'AreaComum', false, id: 'radio_area_comum' %> Área Comum
+    </label>
   </div>
 
   <div>
-    <%= form.label :funcionario_id, style: "display: block" %>
-    <%= form.text_field :funcionario_id %>
+    <%= form.label :ambiente_id, 'Ambiente' %>
+    <%= select_tag 'patrimonio[ambiente_id]', '', id: 'ambiente_select', prompt: 'Selecione um ambiente' %>
   </div>
+
+  <script>
+    function carregarAmbientes(tipo) {
+      fetch(`/ambientes_por_tipo/${tipo}`)
+        .then(response => response.json())
+        .then(data => {
+          const select = document.getElementById('ambiente_select');
+          select.innerHTML = ''; // limpa opções
+          select.appendChild(new Option('Selecione um ambiente', ''));
+
+          data.forEach(ambiente => {
+            select.appendChild(new Option(ambiente.nome, ambiente.id));
+          });
+        });
+    }
+
+    document.getElementById('radio_departamento').addEventListener('change', () => {
+      carregarAmbientes('Departamento');
+    });
+
+    document.getElementById('radio_area_comum').addEventListener('change', () => {
+      carregarAmbientes('AreaComum');
+    });
+
+    // Carrega Departamento como padrão
+    window.addEventListener('DOMContentLoaded', () => {
+      carregarAmbientes('Departamento');
+    });
+  </script>
+
+  <script>
+    function carregarFuncionarios(departamentoId) {
+      const funcionarioSelect = document.getElementById('funcionario_select');
+      funcionarioSelect.innerHTML = '<option>Carregando...</option>';
+
+      fetch(`/departamentos/${departamentoId}/funcionarios`)
+        .then(response => response.json())
+        .then(data => {
+          funcionarioSelect.innerHTML = '<option value="">Selecione um funcionário</option>';
+          data.forEach(funcionario => {
+            const option = document.createElement('option');
+            option.value = funcionario.id;
+            option.textContent = funcionario.nome;
+            funcionarioSelect.appendChild(option);
+          });
+        });
+    }
+
+    document.getElementById('ambiente_select').addEventListener('change', function () {
+      const ambienteTipo = document.querySelector('input[name="ambiente_tipo"]:checked').value;
+
+      // Só carrega funcionários se for Departamento
+      if (ambienteTipo === 'Departamento') {
+        const departamentoId = this.value;
+        if (departamentoId) {
+          carregarFuncionarios(departamentoId);
+        }
+      } else {
+        // Limpa a lista de funcionários se Área Comum
+        document.getElementById('funcionario_select').innerHTML = '<option value="">N/A para Área Comum</option>';
+      }
+    });
+  </script>
+
+  <div>
+    <%= form.label :funcionario_id, 'Funcionário', style: "display: block" %>
+    <%= select_tag 'patrimonio[funcionario_id]', '', id: 'funcionario_select', prompt: 'Selecione um funcionário' %>
+  </div>
+
 
   <div>
     <%= form.submit %>

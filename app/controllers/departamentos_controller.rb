@@ -60,11 +60,11 @@ class DepartamentosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_departamento
-      @departamento = Departamento.find(params.expect(:id))
+      @departamento = Departamento.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def departamento_params
-      params.expect(departamento: [ :nome ])
+      params.require(:departamento).permit(:nome)
     end
 end

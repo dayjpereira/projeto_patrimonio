@@ -1,9 +1,8 @@
-<%= form_with(model: patrimonio) do |form| %>
+<%= form_with(model: patrimonio, class: "max-w-xl mx-auto mt-8") do |form| %>
   <% if patrimonio.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(patrimonio.errors.count, "error") %> prohibited this patrimonio from being saved:</h2>
-
-      <ul>
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-6">
+      <h2 class="font-bold"><%= pluralize(patrimonio.errors.count, "erro") %> impediram o salvamento:</h2>
+      <ul class="list-disc pl-5">
         <% patrimonio.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,111 +10,49 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
+  <div class="mb-4">
+    <%= form.label :nome, class: "block font-semibold text-lg mb-1" %>
+    <%= form.text_field :nome, class: "w-full border p-2 rounded shadow" %>
   </div>
 
-  <div>
-    <%= form.label :descricao, style: "display: block" %>
-    <%= form.text_field :descricao %>
+  <div class="mb-4">
+    <%= form.label :descricao, class: "block font-semibold text-lg mb-1" %>
+    <%= form.text_field :descricao, class: "w-full border p-2 rounded shadow" %>
   </div>
 
-  <div>
-    <%= form.label :placa, style: "display: block" %>
-    <%= form.text_field :placa %>
+  <div class="mb-4">
+    <%= form.label :placa, class: "block font-semibold text-lg mb-1" %>
+    <%= form.text_field :placa, class: "w-full border p-2 rounded shadow" %>
   </div>
 
-  <div>
-    <%= form.label :data_aquisicao, style: "display: block" %>
-    <%= form.date_field :data_aquisicao %>
+  <div class="mb-4">
+    <%= form.label :data_aquisicao, class: "block font-semibold text-lg mb-1" %>
+    <%= form.date_field :data_aquisicao, class: "w-full border p-2 rounded shadow" %>
   </div>
 
-  <div>
-    <strong>Tipo de Ambiente:</strong><br>
-    <label>
-      <%= radio_button_tag :ambiente_tipo, 'Departamento', true, id: 'radio_departamento' %> Departamento
+  <div class="mb-4">
+    <label class="font-semibold text-lg block mb-1">Tipo de Ambiente:</label>
+    <label class="mr-4">
+      <%= radio_button_tag :ambiente_tipo, 'Departamento', true, id: 'radio_departamento', class: "mr-1" %>
+      Departamento
     </label>
     <label>
-      <%= radio_button_tag :ambiente_tipo, 'AreaComum', false, id: 'radio_area_comum' %> Área Comum
+      <%= radio_button_tag :ambiente_tipo, 'AreaComum', false, id: 'radio_area_comum', class: "mr-1" %>
+      Área Comum
     </label>
   </div>
 
-  <div>
-    <%= form.label :ambiente_id, 'Ambiente' %>
-    <%= select_tag 'patrimonio[ambiente_id]', '', id: 'ambiente_select', prompt: 'Selecione um ambiente' %>
+  <div class="mb-4">
+    <%= form.label :ambiente_id, "Ambiente", class: "block font-semibold text-lg mb-1" %>
+    <%= select_tag 'patrimonio[ambiente_id]', '', id: 'ambiente_select', class: "w-full border p-2 rounded shadow", prompt: "Selecione um ambiente" %>
   </div>
 
-  <script>
-    function carregarAmbientes(tipo) {
-      fetch(`/ambientes_por_tipo/${tipo}`)
-        .then(response => response.json())
-        .then(data => {
-          const select = document.getElementById('ambiente_select');
-          select.innerHTML = ''; // limpa opções
-          select.appendChild(new Option('Selecione um ambiente', ''));
-
-          data.forEach(ambiente => {
-            select.appendChild(new Option(ambiente.nome, ambiente.id));
-          });
-        });
-    }
-
-    document.getElementById('radio_departamento').addEventListener('change', () => {
-      carregarAmbientes('Departamento');
-    });
-
-    document.getElementById('radio_area_comum').addEventListener('change', () => {
-      carregarAmbientes('AreaComum');
-    });
-
-    // Carrega Departamento como padrão
-    window.addEventListener('DOMContentLoaded', () => {
-      carregarAmbientes('Departamento');
-    });
-  </script>
-
-  <script>
-    function carregarFuncionarios(departamentoId) {
-      const funcionarioSelect = document.getElementById('funcionario_select');
-      funcionarioSelect.innerHTML = '<option>Carregando...</option>';
-
-      fetch(`/departamentos/${departamentoId}/funcionarios`)
-        .then(response => response.json())
-        .then(data => {
-          funcionarioSelect.innerHTML = '<option value="">Selecione um funcionário</option>';
-          data.forEach(funcionario => {
-            const option = document.createElement('option');
-            option.value = funcionario.id;
-            option.textContent = funcionario.nome;
-            funcionarioSelect.appendChild(option);
-          });
-        });
-    }
-
-    document.getElementById('ambiente_select').addEventListener('change', function () {
-      const ambienteTipo = document.querySelector('input[name="ambiente_tipo"]:checked').value;
-
-      // Só carrega funcionários se for Departamento
-      if (ambienteTipo === 'Departamento') {
-        const departamentoId = this.value;
-        if (departamentoId) {
-          carregarFuncionarios(departamentoId);
-        }
-      } else {
-        // Limpa a lista de funcionários se Área Comum
-        document.getElementById('funcionario_select').innerHTML = '<option value="">N/A para Área Comum</option>';
-      }
-    });
-  </script>
-
-  <div>
-    <%= form.label :funcionario_id, 'Funcionário', style: "display: block" %>
-    <%= select_tag 'patrimonio[funcionario_id]', '', id: 'funcionario_select', prompt: 'Selecione um funcionário' %>
+  <div class="mb-6">
+    <%= form.label :funcionario_id, "Funcionário", class: "block font-semibold text-lg mb-1" %>
+    <%= select_tag 'patrimonio[funcionario_id]', '', id: 'funcionario_select', class: "w-full border p-2 rounded shadow", prompt: "Selecione um funcionário" %>
   </div>
 
-
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create Patrimonio", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
 <% end %>

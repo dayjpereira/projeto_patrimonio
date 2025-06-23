@@ -8,23 +8,39 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
+    <% if notice %>
+      <div class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow">
+        <%= notice %>
+      </div>
+    <% end %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Sidebar Lateral -->
+    <aside class="w-60 bg-gray-900 text-white flex flex-col p-5 space-y-4">
+      <h1 class="text-xl font-bold mb-6">Senge-RJ</h1>
+
+      <%= link_to '🏠 Patrimônios', patrimonios_path, class: "hover:text-gray-300" %>
+      <%= link_to '🏢 Departamentos', departamentos_path, class: "hover:text-gray-300" %>
+      <%= link_to '👥 Funcionários', funcionarios_path, class: "hover:text-gray-300" %>
+      <%= link_to '⚙️ Configurações', "#", class: "hover:text-gray-300" %>
+      <%= link_to '🚪 Sair', "#", class: "hover:text-red-400" %>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 p-8">
       <%= yield %>
     </main>
+
   </body>
 </html>

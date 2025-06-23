@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
 
-<%= render @departamento %>
+  <% if notice %>
+    <div class="mb-4 p-3 rounded bg-green-100 text-green-800 font-semibold shadow">
+      <%= notice %>
+    </div>
+  <% end %>
 
-<div>
-  <%= link_to "Edit this departamento", edit_departamento_path(@departamento) %> |
-  <%= link_to "Back to departamentos", departamentos_path %>
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Detalhes do Departamento</h1>
 
-  <%= button_to "Destroy this departamento", @departamento, method: :delete %>
+  <div class="mb-4">
+    <p class="text-gray-600"><strong class="text-gray-800">Nome:</strong> <%= @departamento.nome %></p>
+  </div>
+
+  <div class="flex space-x-4">
+    <%= link_to 'Editar', edit_departamento_path(@departamento), class: "px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" %>
+
+    <%= link_to 'Voltar para lista', departamentos_path, class: "px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded" %>
+
+    <%= button_to "Excluir", @departamento, method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir?" }, form: { class: "inline" }, class: "px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded" %>
+  </div>
 </div>

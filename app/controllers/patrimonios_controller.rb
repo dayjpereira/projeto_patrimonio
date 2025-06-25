@@ -65,6 +65,7 @@ class PatrimoniosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def patrimonio_params
-      params.expect(patrimonio: [ :nome, :descricao, :placa, :data_aquisicao, :ambiente_id, :funcionario_id ])
+      params.require(:patrimonio).permit(:nome, :descricao, :placa, :valor, :data_aquisicao, :ambiente_id, :funcionario_id)
     end
+
 end

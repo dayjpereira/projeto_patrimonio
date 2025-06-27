@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_23_195227) do
     t.bigint "funcionario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "valor"
+    t.decimal "valor", precision: 10, scale: 2
     t.index ["ambiente_id"], name: "index_patrimonios_on_ambiente_id"
     t.index ["funcionario_id"], name: "index_patrimonios_on_funcionario_id"
   end

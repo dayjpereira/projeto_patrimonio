@@ -1,7 +1,16 @@
 class AmbientesController < ApplicationController
   def por_tipo
-    ambientes = Ambiente.where(type: params[:tipo])
-    render json: ambientes.select(:id, :nome) # evita enviar atributos desnecessários
+    case params[:tipo]
+    when "Departamento"
+      ambientes = Departamento.all
+    when "AreaComum"
+      ambientes = AreaComum.all
+    else
+      ambientes = []
+    end
+
+    render json: ambientes.as_json(only: [:id, :nome])
   end
+
 end
 

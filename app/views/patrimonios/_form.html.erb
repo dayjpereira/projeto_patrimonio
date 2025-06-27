@@ -8,7 +8,7 @@
         <% end %>
       </ul>
     </div>
-  <% end %>
+<% end %>
 
   <!-- Grid 2 colunas para os campos de topo -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -50,7 +50,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div>
         <%= form.label :ambiente_id, "Departamento", class: "block font-semibold mb-1" %>
-        <%= select_tag 'patrimonio[ambiente_id]', '', id: 'ambiente_select', class: "w-full border p-2 rounded shadow", prompt: "Selecione um departamento" %>
+        <%= select_tag 'patrimonio[ambiente_id]', options_for_select([]), id: 'ambiente_select', class: "w-full border p-2 rounded shadow", prompt: "Selecione um ambiente" %>
       </div>
 
       <div>
@@ -58,9 +58,6 @@
         <%= select_tag 'patrimonio[funcionario_id]', '', id: 'funcionario_select', class: "w-full border p-2 rounded shadow", prompt: "Selecione um funcionário" %>
       </div>
     </div>
-
-
-
   <!-- Campo Descrição (largura total) -->
   <div class="mb-6">
     <%= form.label :descricao, "Descrição do Produto", class: "block font-semibold mb-1" %>

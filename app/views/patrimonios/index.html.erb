@@ -1,16 +1,68 @@
-<p style="color: green"><%= notice %></p>
+<h1 class="text-2xl font-bold mb-6">Patrimônios</h1>
 
-<% content_for :title, "Patrimonios" %>
+<%= form_with url: patrimonios_path, method: :get, local: true, class: "mb-6" do %>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Nome</label>
+      <%= text_field_tag :nome, params[:nome], class: "w-full border p-0.5 rounded shadow" %>
+    </div>
 
-<h1>Patrimonios</h1>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Placa</label>
+      <%= text_field_tag :placa, params[:placa], class: "w-full border p-0.5 rounded shadow" %>
+    </div>
 
-<div id="patrimonios">
-  <% @patrimonios.each do |patrimonio| %>
-    <%= render patrimonio %>
-    <p>
-      <%= link_to "Show this patrimonio", patrimonio %>
-    </p>
-  <% end %>
-</div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Ambiente</label>
+      <%= select_tag :ambiente_id,
+          options_from_collection_for_select(Ambiente.all, :id, :nome, params[:ambiente_id]),
+          include_blank: "Todos",
+          class: "w-full border p-0.5 rounded shadow" %>
+    </div>
 
-<%= link_to "New patrimonio", new_patrimonio_path %>
+    <div class="flex items-end">
+      <%= submit_tag "Filtrar", class: "w-full p-0.5 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md" %>
+    </div>
+  </div>
+<% end %>
+
+<table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+  <thead class="bg-gray-100 text-gray-700 text-left">
+    <tr>
+      <th class="py-3 px-4">Nome</th>
+      <th class="py-3 px-4">Placa</th>
+      <th class="py-3 px-4">Ambiente</th>
+      <th class="py-3 px-4">Ações</th>
+    </tr>
+  </thead>
+  <tbody class="text-gray-800">
+    <% @patrimonios.each do |patrimonio| %>
+      <tr class="border-t hover:bg-gray-50">
+        <td class="py-2 px-4"><%= patrimonio.nome %></td>
+        <td class="py-2 px-4"><%= patrimonio.placa %></td>
+        <td class="py-2 px-4"><%= patrimonio.ambiente&.nome || "Não definido" %></td>
+        <td class="py-2 px-4">
+          <div x-data="{ open: false }" class="relative inline-block text-left">
+            <button @click="open = !open" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-3 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none">
+              Ações
+              <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10" x-cloak>
+              <div class="py-1">
+                <%= link_to 'Visualizar', patrimonio_path(patrimonio), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <%= link_to 'Movimentar', movimentacao_patrimonios_path(patrimonio_id: patrimonio.id), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <%= link_to 'Excluir', patrimonio_path(patrimonio), method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: "block px-4 py-2 text-sm text-red-600 hover:bg-gray-100" %>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Novo Patrimônio', new_patrimonio_path, class: "mt-6 inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition" %>

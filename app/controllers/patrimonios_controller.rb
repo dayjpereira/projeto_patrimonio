@@ -4,6 +4,18 @@ class PatrimoniosController < ApplicationController
   # GET /patrimonios or /patrimonios.json
   def index
     @patrimonios = Patrimonio.all
+
+    if params[:nome].present?
+      @patrimonios = @patrimonios.where("nome ILIKE ?", "%#{params[:nome]}%")
+    end
+
+    if params[:placa].present?
+      @patrimonios = @patrimonios.where("placa ILIKE ?", "%#{params[:placa]}%")
+    end
+
+    if params[:ambiente_id].present?
+      @patrimonios = @patrimonios.where(ambiente_id: params[:ambiente_id])
+    end
   end
 
   # GET /patrimonios/1 or /patrimonios/1.json
@@ -25,7 +37,7 @@ class PatrimoniosController < ApplicationController
 
     respond_to do |format|
       if @patrimonio.save
-        format.html { redirect_to @patrimonio, notice: "Patrimonio was successfully created." }
+        format.html { redirect_to @patrimonio, notice: "Patrimônio criado com sucesso!" }
         format.json { render :show, status: :created, location: @patrimonio }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +50,7 @@ class PatrimoniosController < ApplicationController
   def update
     respond_to do |format|
       if @patrimonio.update(patrimonio_params)
-        format.html { redirect_to @patrimonio, notice: "Patrimonio was successfully updated." }
+        format.html { redirect_to @patrimonio, notice: "Patrimônio atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @patrimonio }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +72,7 @@ class PatrimoniosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patrimonio
-      @patrimonio = Patrimonio.find(params.expect(:id))
+      @patrimonio = Patrimonio.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

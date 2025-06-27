@@ -22,7 +22,7 @@ class PatrimoniosTest < ApplicationSystemTestCase
     fill_in "Placa", with: @patrimonio.placa
     click_on "Create Patrimonio"
 
-    assert_text "Patrimonio was successfully created"
+    assert_text "Patrimônio criado com sucesso."
     click_on "Back"
   end
 

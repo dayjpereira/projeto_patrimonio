@@ -1,32 +1,44 @@
-<div id="<%= dom_id patrimonio %>">
-  <p>
-    <strong>Nome:</strong>
-    <%= patrimonio.nome %>
-  </p>
+<div id="<%= dom_id patrimonio %>" class="max-w-2xl mx-auto bg-white shadow rounded-lg p-6 mt-8 space-y-4 text-gray-800">
+  <h2 class="text-2xl font-semibold border-b pb-2 mb-4">Detalhes do Patrimônio</h2>
 
-  <p>
-    <strong>Descricao:</strong>
-    <%= patrimonio.descricao %>
-  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+    <div>
+      <span class="font-semibold">Nome:</span>
+      <p><%= patrimonio.nome.presence || '-' %></p>
+    </div>
 
-  <p>
-    <strong>Placa:</strong>
-    <%= patrimonio.placa %>
-  </p>
+    <div>
+      <span class="font-semibold">Placa:</span>
+      <p><%= patrimonio.placa.presence || '-' %></p>
+    </div>
 
-  <p>
-    <strong>Data aquisicao:</strong>
-    <%= patrimonio.data_aquisicao %>
-  </p>
+    <div class="sm:col-span-2">
+      <span class="font-semibold">Descrição:</span>
+      <p><%= patrimonio.descricao.presence || '-' %></p>
+    </div>
 
-  <p>
-    <strong>Ambiente:</strong>
-    <%= patrimonio.ambiente_id %>
-  </p>
+    <div>
+      <span class="font-semibold">Data de aquisição:</span>
+      <p><%= patrimonio.data_aquisicao.present? ? l(patrimonio.data_aquisicao) : '-' %></p>
+    </div>
 
-  <p>
-    <strong>Funcionario:</strong>
-    <%= patrimonio.funcionario_id %>
-  </p>
+    <div>
+      <span class="font-semibold">Ambiente:</span>
+      <p><%= patrimonio.ambiente_id || '-' %></p>
+    </div>
 
+    <div class="sm:col-span-2">
+      <span class="font-semibold">Funcionário:</span>
+      <p><%= patrimonio.funcionario_id || '-' %></p>
+    </div>
+  </div>
+
+  <div class="flex justify-between items-center border-t pt-4 text-sm mt-6">
+    <div class="space-x-4">
+      <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: "text-blue-600 hover:underline" %>
+      <%= link_to 'Voltar', patrimonios_path, class: "text-gray-600 hover:underline" %>
+    </div>
+    <%= link_to 'Excluir', patrimonio, method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir?" }, class: "text-red-600 hover:underline" %>
+  </div>
 </div>
+

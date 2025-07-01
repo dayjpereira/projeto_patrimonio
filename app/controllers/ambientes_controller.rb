@@ -35,6 +35,20 @@ class AmbientesController < ApplicationController
     redirect_to ambientes_path, notice: "Ambiente excluído com sucesso!"
   end
 
+  # ⬇️⬇️ MOVIDA PARA AQUI — VISÍVEL PARA A ROTA
+  def por_tipo
+    case params[:tipo]
+    when "departamento"
+      ambientes = Departamento.all
+    when "area_comum"
+      ambientes = AreaComum.all
+    else
+      ambientes = []
+    end
+
+    render json: ambientes.as_json(only: [:id, :nome])
+  end
+
   private
 
   def set_ambiente
@@ -44,19 +58,4 @@ class AmbientesController < ApplicationController
   def ambiente_params
     params.require(:ambiente).permit(:nome, :type)
   end
-  
-  def por_tipo
-    case params[:tipo]
-    when "Departamento"
-      ambientes = Departamento.all
-    when "AreaComum"
-      ambientes = AreaComum.all
-    else
-      ambientes = []
-    end
-
-    render json: ambientes.as_json(only: [:id, :nome])
-  end
-
 end
-

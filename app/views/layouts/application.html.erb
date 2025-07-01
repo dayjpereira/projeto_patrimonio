@@ -7,6 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    
 
     <%= yield :head %>
 
@@ -15,7 +16,8 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-
+    <%= javascript_importmap_tags %>
+  
 
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -23,7 +25,6 @@
 
   <body class="bg-gray-100 min-h-screen flex">
 
-    <%= javascript_importmap_tags %>
 
 
     <!-- Mensagem flash -->
@@ -38,7 +39,7 @@
       <h1 class="text-xl font-bold mb-6">Senge-RJ</h1>
 
       <%= link_to '🏠 Patrimônios', patrimonios_path, class: "hover:text-gray-300" %>
-      <%= link_to '🏢 Ambientes', ambientes_path, class: "hover:text-gray-300" %>
+      <%= link_to '🏢 Localização', ambientes_path, class: "hover:text-gray-300" %>
       <%= link_to '👥 Funcionários', funcionarios_path, class: "hover:text-gray-300" %>
       <%= link_to '⚙️ Configurações', "#", class: "hover:text-gray-300" %>
       <%= link_to '🚪 Sair', "#", class: "hover:text-red-400" %>

@@ -28,9 +28,12 @@ document.addEventListener("turbo:load", () => {
   }
 
   // Eventos
-  radioDepartamento.addEventListener("change", () => carregarAmbientes("Departamento"));
-  radioAreaComum.addEventListener("change", () => carregarAmbientes("AreaComum"));
+  radioDepartamento.addEventListener("change", () => carregarAmbientes("departamento"));
+  radioAreaComum.addEventListener("change", () => carregarAmbientes("area_comum"));
 
   // Carregar por padrão
-  carregarAmbientes("Departamento");
+  carregarAmbientes("departamento");
 });
+
+
+

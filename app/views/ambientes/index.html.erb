@@ -1,0 +1,25 @@
+<h1 class="text-2xl font-bold mb-6">Ambientes Cadastrados</h1>
+
+<%= link_to "Novo Ambiente", new_ambiente_path, class: "mb-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded" %>
+
+<table class="min-w-full bg-white border border-gray-300 rounded shadow">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="py-2 px-4 text-left">Nome</th>
+      <th class="py-2 px-4 text-left">Tipo</th>
+      <th class="py-2 px-4">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ambientes.each do |ambiente| %>
+      <tr class="border-t hover:bg-gray-50">
+        <td class="py-2 px-4"><%= ambiente.nome %></td>
+        <td class="py-2 px-4"><%= ambiente.type == "Departamento" ? "Departamento" : "Área Comum" %></td>
+        <td class="py-2 px-4">
+          <%= link_to "Editar", edit_ambiente_path(ambiente), class: "text-blue-600 hover:underline mr-2" %>
+          <%= button_to "Excluir", ambiente_path(ambiente), method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir?" }, class: "text-red-600 hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

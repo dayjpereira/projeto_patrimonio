@@ -22,15 +22,22 @@
       <p><%= patrimonio.data_aquisicao.present? ? l(patrimonio.data_aquisicao) : '-' %></p>
     </div>
 
+
     <div>
-      <span class="font-semibold">Ambiente:</span>
-      <p><%= patrimonio.ambiente_id || '-' %></p>
+      <span class="font-semibold">Valor:</span>
+      <p><%= patrimonio.valor || '-' %></p>
     </div>
 
-    <div class="sm:col-span-2">
+    <div>
+      <span class="font-semibold">Departamento / Área Comum:</span>
+      <p><%= patrimonio.ambiente.nome || '-' %></p>
+    </div>
+
+    <div>
       <span class="font-semibold">Funcionário:</span>
       <p><%= patrimonio.funcionario_id || '-' %></p>
     </div>
+
   </div>
 
   <div class="flex justify-between items-center border-t pt-4 text-sm mt-6">
@@ -38,7 +45,7 @@
       <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: "text-blue-600 hover:underline" %>
       <%= link_to 'Voltar', patrimonios_path, class: "text-gray-600 hover:underline" %>
     </div>
-    <%= link_to 'Excluir', patrimonio, method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir?" }, class: "text-red-600 hover:underline" %>
+      <%= button_to "Excluir", @patrimonio, method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir?" }, form: { class: "inline" }, class: "text-red-600 hover:underline" %>
   </div>
 </div>
 

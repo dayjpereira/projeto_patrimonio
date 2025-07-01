@@ -1,7 +1,8 @@
 <h1 class="text-2xl font-bold mb-6">Patrimônios</h1>
 
 <%= form_with url: patrimonios_path, method: :get, local: true, class: "mb-6" do %>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+    
     <div>
       <label class="block text-sm font-medium text-gray-700">Nome</label>
       <%= text_field_tag :nome, params[:nome], class: "w-full border p-0.5 rounded shadow" %>
@@ -17,12 +18,17 @@
       <%= select_tag :ambiente_id,
           options_from_collection_for_select(Ambiente.all, :id, :nome, params[:ambiente_id]),
           include_blank: "Todos",
-          class: "w-full border p-0.5 rounded shadow" %>
+          class: "w-full border p-1 rounded shadow" %>
     </div>
 
-    <div class="flex items-end">
-      <%= submit_tag "Filtrar", class: "w-full p-0.5 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md" %>
+    <div>
+      <%= submit_tag "Filtrar", class: "w-full bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md" %>
     </div>
+
+    <div>
+      <%= link_to "Limpar", patrimonios_path, class: "w-full inline-block text-center bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-4 rounded-md" %>
+    </div>
+
   </div>
 <% end %>
 
@@ -31,7 +37,7 @@
     <tr>
       <th class="py-3 px-4">Nome</th>
       <th class="py-3 px-4">Placa</th>
-      <th class="py-3 px-4">Ambiente</th>
+      <th class="py-3 px-4">Departamento / Área Comum</th>
       <th class="py-3 px-4">Ações</th>
     </tr>
   </thead>
@@ -55,7 +61,7 @@
                 <%= link_to 'Visualizar', patrimonio_path(patrimonio), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
                 <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
                 <%= link_to 'Movimentar', movimentacao_patrimonios_path(patrimonio_id: patrimonio.id), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
-                <%= link_to 'Excluir', patrimonio_path(patrimonio), method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: "block px-4 py-2 text-sm text-red-600 hover:bg-gray-100" %>
+                <%= button_to 'Excluir', patrimonio_path(patrimonio), method: :delete, data: { turbo_confirm: 'Tem certeza que deseja excluir?' }, class: "block px-4 py-2 text-sm text-red-600 hover:bg-gray-100" %>
               </div>
             </div>
           </div>
